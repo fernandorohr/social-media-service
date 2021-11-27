@@ -37,6 +37,12 @@ public class UserFacade {
                 .apply(email);
     }
 
+    public UserResponse findUser(String id) {
+        return userService.findUser()
+                .andThen(mapToResponse())
+                .apply(id);
+    }
+
     public void deleteById(String id) {
         userService.deleteById(id);
     }

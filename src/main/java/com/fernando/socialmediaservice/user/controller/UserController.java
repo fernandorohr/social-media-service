@@ -62,6 +62,18 @@ public class UserController {
         return userFacade.login(email, password);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Busca usuário por ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK", response = UserResponse.class),
+            @ApiResponse(code = 404, message = "NOT FOUND", response = NotFoundExceptionDetails.class),
+            @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
+    })
+    public UserResponse findUser(@PathVariable("id") String id) {
+        return userFacade.findUser(id);
+    }
+
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation("Deleta o usuario")

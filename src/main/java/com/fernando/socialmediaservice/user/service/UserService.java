@@ -39,6 +39,10 @@ public class UserService {
         };
     }
 
+    public Function<String, UserModel> findUser() {
+        return this::findById;
+    }
+
     public Function<String, UserModel> login(String password) {
         return email -> userRepository.findByEmailAndPassword(email, password)
                 .map(UserMapper::mapEntityToModel)
