@@ -1,0 +1,8 @@
+server:
+  port: 9200
+  servlet:
+    context-path: /social-media
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/social-media
