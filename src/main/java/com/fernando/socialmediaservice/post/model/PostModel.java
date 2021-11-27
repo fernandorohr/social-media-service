@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostModel {
+public class PostModel implements Comparable<PostModel> {
 
     private String id;
     private String author;
@@ -21,4 +21,9 @@ public class PostModel {
     private String body;
     private LocalDateTime dateTime;
     private List<CommentModel> comments;
+
+    @Override
+    public int compareTo(PostModel o) {
+        return o.getDateTime().compareTo(this.dateTime);
+    }
 }

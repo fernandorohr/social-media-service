@@ -11,10 +11,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentModel {
+public class CommentModel implements Comparable<CommentModel> {
 
     private String author;
     private String authorId;
     private String body;
     private LocalDateTime dateTime;
+
+    @Override
+    public int compareTo(CommentModel o) {
+        return o.getDateTime().compareTo(this.dateTime);
+    }
 }

@@ -66,6 +66,7 @@ public class CommentMapper {
     public static List<CommentResponse> mapModelListToResponseList(List<CommentModel> commentModels) {
         if (ObjectUtils.isEmpty(commentModels)) return Collections.emptyList();
         return commentModels.stream()
+                .sorted()
                 .map(CommentMapper::mapModelToResponse)
                 .collect(Collectors.toList());
     }

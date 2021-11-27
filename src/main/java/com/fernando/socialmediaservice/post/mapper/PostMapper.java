@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,6 +90,7 @@ public class PostMapper {
 
     public static List<PostResponse> mapModelListToResponse(List<PostModel> postModels) {
         return postModels.stream()
+                .sorted()
                 .map(PostMapper::mapModelToResponse)
                 .collect(Collectors.toList());
     }
