@@ -1,13 +1,10 @@
 package com.fernando.socialmediaservice.post.controller;
 
 import com.fernando.socialmediaservice.exception.BadRequestExceptionDetails;
-import com.fernando.socialmediaservice.exception.ConflictExceptionDetails;
 import com.fernando.socialmediaservice.exception.InternalServerErrorExceptionDetails;
 import com.fernando.socialmediaservice.post.facade.PostFacade;
 import com.fernando.socialmediaservice.post.model.request.CreatePostRequest;
 import com.fernando.socialmediaservice.post.model.response.PostResponse;
-import com.fernando.socialmediaservice.user.model.request.CreateUserRequest;
-import com.fernando.socialmediaservice.user.model.response.UserResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -59,7 +56,7 @@ public class PostController {
             @ApiResponse(code = 400, message = "BAD REQUEST", response = BadRequestExceptionDetails.class),
             @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
     })
-    public void findAll(@PathVariable("id") @NotNull String id) {
+    public void deleteById(@PathVariable("id") @NotNull String id) {
         postFacade.deleteById(id);
     }
 }

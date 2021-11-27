@@ -1,7 +1,10 @@
 package com.fernando.socialmediaservice.post.facade;
 
+import com.fernando.socialmediaservice.post.mapper.CommentMapper;
 import com.fernando.socialmediaservice.post.mapper.PostMapper;
+import com.fernando.socialmediaservice.post.model.CommentModel;
 import com.fernando.socialmediaservice.post.model.PostModel;
+import com.fernando.socialmediaservice.post.model.request.CommentRequest;
 import com.fernando.socialmediaservice.post.model.request.CreatePostRequest;
 import com.fernando.socialmediaservice.post.model.request.UpdatePostRequest;
 import com.fernando.socialmediaservice.post.model.response.PostResponse;
