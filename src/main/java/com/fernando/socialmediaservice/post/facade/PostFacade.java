@@ -45,6 +45,12 @@ public class PostFacade {
                 .apply(page);
     }
 
+    public Page<PostResponse> findAllByAuthorId(String authorId, Integer page, Integer size) {
+        return postService.findAllByAuthorId(page, size)
+                .andThen(mapModelPageToResponsePage())
+                .apply(authorId);
+    }
+
     public void deleteById(String userId, String postId) {
         postService.deleteById()
                 .andThen(userService.deletePost())

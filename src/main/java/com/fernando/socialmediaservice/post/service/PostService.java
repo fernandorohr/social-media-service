@@ -43,6 +43,13 @@ public class PostService {
         };
     }
 
+    public Function<String, Page<PostModel>> findAllByAuthorId(Integer page, Integer size) {
+        return authorId -> {
+            var pageable = PageRequest.of(page, size);
+            return PostMapper.mapEntityPageToModelPage(postRepository.findAllByAuthorId(authorId, pageable));
+        };
+    }
+
     public BiConsumer<String, String> deleteById() {
         return (userId, postId) -> postRepository.deleteById(postId);
     }
