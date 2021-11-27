@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 @Service
@@ -27,7 +28,7 @@ public class UserService {
         return userModel ->  {
             if (Objects.nonNull(userRepository.findByEmail(userModel.getEmail())))
                 throw new ConflictException(String.format("Email %s já está cadastrado", userModel.getEmail()));
-            return saveUser(userModel);
+            return save(userModel);
         };
     }
 
@@ -48,10 +49,18 @@ public class UserService {
     public void addPostToUser(String authorId, String postId) {
         var userModel = findById(authorId);
         addPostToList(userModel, postId);
-        saveUser(userModel);
+        save(userModel);
     }
 
-    private UserModel saveUser(UserModel userModel) {
+    public BiConsumer<String, String> deletePost() {
+        return (userId, postId) -> {
+            var userModel = findById(userId);
+            userModel.getPostIds().remove(postId);
+            save(userModel);
+        };
+    }
+
+    private UserModel save(UserModel userModel) {
         return Optional.of(userRepository.save(UserMapper.mapModelToEntity(userModel)))
                 .map(UserMapper::mapEntityToModel)
                 .orElseThrow(() -> new InternalServerErrorException("Falha ao salvar usuario"));

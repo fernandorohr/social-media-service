@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -35,7 +36,7 @@ public class PostController {
         return postFacade.create(createPostRequest);
     }
 
-    @GetMapping("/{page}/{size}")
+    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Busca todos os posts de forma paginada")
     @ApiResponses({
@@ -43,12 +44,11 @@ public class PostController {
             @ApiResponse(code = 400, message = "BAD REQUEST", response = BadRequestExceptionDetails.class),
             @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
     })
-    public Page<PostResponse> findAll(@PathVariable("page") @NotNull Integer page,
-                                     @PathVariable("size") @NotNull Integer size) {
+    public Page<PostResponse> findAll(@RequestParam @NotNull Integer page, @RequestParam @NotNull Integer size) {
         return postFacade.findAll(page, size);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Deleta um post por ID")
     @ApiResponses({
@@ -56,7 +56,7 @@ public class PostController {
             @ApiResponse(code = 400, message = "BAD REQUEST", response = BadRequestExceptionDetails.class),
             @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
     })
-    public void deleteById(@PathVariable("id") @NotNull String id) {
-        postFacade.deleteById(id);
+    public void deleteById(@RequestParam @NotBlank String userId, @RequestParam @NotBlank String postId) {
+        postFacade.deleteById(userId, postId);
     }
 }

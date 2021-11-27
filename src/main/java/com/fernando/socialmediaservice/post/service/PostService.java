@@ -15,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 @Service
@@ -34,8 +35,8 @@ public class PostService {
         };
     }
 
-    public void deleteById(String id) {
-        postRepository.deleteById(id);
+    public BiConsumer<String, String> deleteById() {
+        return (userId, postId) -> postRepository.deleteById(postId);
     }
 
     private PostModel save(PostModel postModel) {

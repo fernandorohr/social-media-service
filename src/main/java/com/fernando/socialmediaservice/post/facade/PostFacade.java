@@ -38,8 +38,10 @@ public class PostFacade {
                 .apply(page);
     }
 
-    public void deleteById(String id) {
-        postService.deleteById(id);
+    public void deleteById(String userId, String postId) {
+        postService.deleteById()
+                .andThen(userService.deletePost())
+                .accept(userId, postId);
     }
 
     private Function<PostModel, PostModel> addPostToUser() {
