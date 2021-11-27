@@ -32,9 +32,9 @@ public class PostMapper {
     public static PostModel mapRequestToModel (UpdatePostRequest updatePostRequest) {
         return Optional.ofNullable(updatePostRequest).map(post ->
                         PostModel.builder()
+                                .id(post.getId())
                                 .title(post.getTitle())
                                 .body(post.getBody())
-                                .dateTime(LocalDateTime.now())
                                 .build())
                 .orElse(null);
     }

@@ -32,6 +32,13 @@ public class PostFacade {
 
     }
 
+    public PostResponse update(UpdatePostRequest updatePostRequest) {
+        return mapUpdateRequestToModel()
+                .andThen(postService.update())
+                .andThen(mapModelToResponse())
+                .apply(updatePostRequest);
+    }
+
     public Page<PostResponse> findAll(Integer page, Integer size) {
         return postService.findAll(size)
                 .andThen(mapModelPageToResponsePage())

@@ -33,7 +33,10 @@ public class UserService {
     }
 
     public Function<UserModel, UserModel> update() {
-        return newUser -> UserFactory.updateUser(newUser, findById(newUser.getId()));
+        return newUser -> {
+            var userModel = UserFactory.updateUser(newUser, findById(newUser.getId()));
+            return save(userModel);
+        };
     }
 
     public Function<String, UserModel> login(String password) {

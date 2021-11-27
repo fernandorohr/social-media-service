@@ -4,6 +4,7 @@ import com.fernando.socialmediaservice.exception.BadRequestExceptionDetails;
 import com.fernando.socialmediaservice.exception.InternalServerErrorExceptionDetails;
 import com.fernando.socialmediaservice.post.facade.PostFacade;
 import com.fernando.socialmediaservice.post.model.request.CreatePostRequest;
+import com.fernando.socialmediaservice.post.model.request.UpdatePostRequest;
 import com.fernando.socialmediaservice.post.model.response.PostResponse;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -36,6 +37,18 @@ public class PostController {
         return postFacade.create(createPostRequest);
     }
 
+    @PatchMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Atualiza um post")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK", response = PostResponse.class),
+            @ApiResponse(code = 400, message = "BAD REQUEST", response = BadRequestExceptionDetails.class),
+            @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
+    })
+    public PostResponse update(@RequestBody @Valid @NotNull UpdatePostRequest updatePostRequest) {
+        return postFacade.update(updatePostRequest);
+    }
+
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Busca todos os posts de forma paginada")
@@ -49,7 +62,7 @@ public class PostController {
     }
 
     @DeleteMapping("")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation("Deleta um post por ID")
     @ApiResponses({
             @ApiResponse(code = 204, message = "NO CONTENT"),

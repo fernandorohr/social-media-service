@@ -2,6 +2,7 @@ package com.fernando.socialmediaservice.post.service;
 
 import com.fernando.socialmediaservice.exception.InternalServerErrorException;
 import com.fernando.socialmediaservice.exception.NotFoundException;
+import com.fernando.socialmediaservice.post.factory.PostFactory;
 import com.fernando.socialmediaservice.post.mapper.PostMapper;
 import com.fernando.socialmediaservice.post.model.CommentModel;
 import com.fernando.socialmediaservice.post.model.PostModel;
@@ -26,6 +27,13 @@ public class PostService {
 
     public Function<PostModel, PostModel> create() {
         return this::save;
+    }
+
+    public Function<PostModel, PostModel> update() {
+        return postModel -> {
+            postModel = PostFactory.updatePost(postModel, findById(postModel.getId()));
+            return save(postModel);
+        };
     }
 
     public Function<Integer, Page<PostModel>> findAll(Integer size) {

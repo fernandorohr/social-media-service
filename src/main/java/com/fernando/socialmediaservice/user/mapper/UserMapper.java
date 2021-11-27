@@ -27,6 +27,7 @@ public class UserMapper {
     public static UserModel mapRequestToModel(UpdateUserRequest updateUserRequest) {
         return Optional.ofNullable(updateUserRequest).map(user ->
                         UserModel.builder()
+                                .id(user.getId())
                                 .name(user.getName())
                                 .email(user.getEmail())
                                 .password(user.getPassword())

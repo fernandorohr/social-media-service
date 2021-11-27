@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Data
@@ -14,6 +15,9 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class UpdateUserRequest {
 
+    @NotBlank(message = "O ID é obrigatório na atualização do usuário")
+    @ApiModelProperty(value = "ID do usuário", example = "61a26bb57d65c61f3744d6a9", required = true)
+    private String id;
     @ApiModelProperty(value = "Nome do usuário", example = "Eliton")
     private String name;
     @ApiModelProperty(value = "Email do usuário", example = "eliton@eliton.com")
