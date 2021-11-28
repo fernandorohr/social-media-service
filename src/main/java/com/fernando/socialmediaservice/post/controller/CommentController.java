@@ -23,7 +23,7 @@ public class CommentController {
 
     private final CommentFacade commentFacade;
 
-    @PostMapping("/add/{id}")
+    @PostMapping("/add/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Cria um post")
     @ApiResponses({
@@ -32,7 +32,7 @@ public class CommentController {
             @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
     })
     public PostResponse create(@RequestBody @Valid @NotNull CommentRequest commentRequest,
-                               @PathVariable("id") String postId) {
+                               @PathVariable("postId") String postId) {
         return commentFacade.addComment(commentRequest, postId);
     }
 }

@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.function.Function;
 
 @Component
@@ -39,10 +40,8 @@ public class PostFacade {
                 .apply(updatePostRequest);
     }
 
-    public Page<PostResponse> findAll(Integer page, Integer size) {
-        return postService.findAll(size)
-                .andThen(mapModelPageToResponsePage())
-                .apply(page);
+    public List<PostResponse> findAll() {
+        return PostMapper.mapModelListToResponse(postService.findAll());
     }
 
     public Page<PostResponse> findAllByAuthorId(String authorId, Integer page, Integer size) {

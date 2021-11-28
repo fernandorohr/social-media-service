@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/post")
@@ -51,14 +52,14 @@ public class PostController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Busca todos os posts de forma paginada")
+    @ApiOperation("Busca todos os posts")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK", response = PostResponse.class),
             @ApiResponse(code = 400, message = "BAD REQUEST", response = BadRequestExceptionDetails.class),
             @ApiResponse(code = 500, message = "INTERNAL SERVER ERROR", response = InternalServerErrorExceptionDetails.class)
     })
-    public Page<PostResponse> findAll(@RequestParam @NotNull Integer page, @RequestParam @NotNull Integer size) {
-        return postFacade.findAll(page, size);
+    public List<PostResponse> findAll() {
+        return postFacade.findAll();
     }
 
     @GetMapping("/author")

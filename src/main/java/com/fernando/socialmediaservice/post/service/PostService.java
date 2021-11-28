@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Collections;
-import java.util.Objects;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -36,11 +36,8 @@ public class PostService {
         };
     }
 
-    public Function<Integer, Page<PostModel>> findAll(Integer size) {
-        return page -> {
-            var pageable = PageRequest.of(page, size);
-            return PostMapper.mapEntityPageToModelPage(postRepository.findAll(pageable));
-        };
+    public List<PostModel> findAll() {
+            return PostMapper.mapEntityListToModelList(postRepository.findAll());
     }
 
     public Function<String, Page<PostModel>> findAllByAuthorId(Integer page, Integer size) {
